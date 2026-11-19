@@ -26,6 +26,7 @@ def validate_order(order, products, customers):
         errors.append("Order is missing a customer id")
 
     customer = find_customer_by_id(customers, order.get("customer_id"))
+    
     if customer is None:
         errors.append("Customer does not exist")
 
@@ -42,7 +43,7 @@ def validate_order(order, products, customers):
         quantity = item.get("quantity")
         if not isinstance(quantity, int):
             errors.append(f"Invalid quantity for {product['name']}")
-        elif quantity < 0:
+        elif quantity <= 0:
             errors.append(f"Quantity must be positive for {product['name']}")
 
         if quantity and product["stock"] < 1:
