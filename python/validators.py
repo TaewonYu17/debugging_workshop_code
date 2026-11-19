@@ -22,12 +22,11 @@ def validate_order(order, products, customers):
     if "id" not in order:
         errors.append("Order is missing an id")
 
-    if not is_non_empty_string(order.get("customer_id")):
-        errors.append("Order is missing a customer id")
+    customer_id = order.get("customer_id")
 
-    customer = find_customer_by_id(customers, order.get("customer_id"))
-    
-    if customer is None:
+    if not is_non_empty_string(customer_id):
+        errors.append("Order is missing a customer id")
+    elif find_customer_by_id(customers, customer_id) is None:
         errors.append("Customer does not exist")
 
     if "items" not in order or len(order["items"]) == 0:
