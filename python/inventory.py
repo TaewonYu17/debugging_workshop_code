@@ -3,7 +3,7 @@ def reserve_inventory(products, order):
         product = next((p for p in products if p["id"] == item["product_id"]), None)
         
         if product is not None:
-            product["stock"] -= 1
+            product["stock"] -= item["quantity"]
 
 
 def restock_product(products, product_id, amount):
